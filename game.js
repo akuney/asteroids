@@ -22,8 +22,15 @@
   };
 
   Game.prototype.addAsteroids = function(numAsteroids) {
-    for(var i = 0; i < numAsteroids; i++) {
-      this.asteroids.push(Asteroids.Asteroid.randomAsteroid(Game.DIM_X, Game.DIM_Y));
+    var counter = 0;
+
+    while(counter < numAsteroids) {
+      var randomAsteroid = Asteroids.Asteroid.randomAsteroid(Game.DIM_X, Game.DIM_Y);
+
+      if (randomAsteroid.isCollidedWith(this.ship) === false) {
+        counter++;
+        this.asteroids.push(randomAsteroid);
+      }
     }
   };
 
