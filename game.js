@@ -6,11 +6,19 @@
     this.asteroids = [];
     this.bullets = [];
     this.ship = new Asteroids.Ship([Game.DIM_X/2, Game.DIM_Y/2]);
+    this.img = new Image();
+    this.img.src = 'space.jpeg';
   };
 
   Game.DIM_X = 500;
   Game.DIM_Y = 500;
   Game.FPS = 30;
+
+  Game.prototype.drawImage = function() {
+    this.ctx.drawImage(this.img,
+      0, 0, 230, 150,
+      0, 0, 500, 500);
+  };
 
   Game.prototype.addAsteroids = function(numAsteroids) {
     for(var i = 0; i < numAsteroids; i++) {
@@ -21,6 +29,7 @@
   Game.prototype.draw = function() {
     this.ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
     var ctx = this.ctx;
+    this.drawImage();
 
     this.asteroids.forEach(function(asteroid){
       asteroid.draw(ctx);
@@ -56,7 +65,7 @@
     this.relocateAsteroids();
     this.removeBullets();
     this.relocateShip();
-  }
+  };
 
   Game.prototype.destroyAsteroid = function(i) {
     this.asteroids.splice(i, 1);

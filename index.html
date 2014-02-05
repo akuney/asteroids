@@ -2,9 +2,6 @@
 <html>
 <head>
     <title>Asteroids</title>
-</head>
-<body>
-    <canvas width="500" height="500"></canvas>
 
     <script src="keymaster.js"></script>
     <script src="moving_object.js"></script>
@@ -13,9 +10,14 @@
     <script src="game.js"></script>
     <script src="bullet.js"></script>
 
+</head>
+<body>
+    <canvas width="500" height="500"></canvas>
+
     <script>
         var canvas = document.getElementsByTagName("canvas")[0];
-        new window.Asteroids.Game(canvas.getContext("2d")).start();
+        var ctx = canvas.getContext("2d");
+        new window.Asteroids.Game(ctx).start();
     </script>
 </body>
 </html>
