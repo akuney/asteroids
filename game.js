@@ -13,10 +13,11 @@
   Game.DIM_X = 500;
   Game.DIM_Y = 500;
   Game.FPS = 30;
+  Game.NUM_ASTEROIDS = 10;
 
   Game.prototype.drawImage = function() {
     this.ctx.drawImage(this.img,
-      0, 0, 230, 150,
+      0, 0, 284, 150,
       0, 0, 500, 500);
   };
 
@@ -59,6 +60,7 @@
     this.checkOffScreen();
     this.draw();
     this.checkCollisions();
+    this.checkVictory();
   };
 
   Game.prototype.checkOffScreen = function() {
@@ -66,6 +68,13 @@
     this.removeBullets();
     this.relocateShip();
   };
+
+  Game.prototype.checkVictory = function() {
+    if (this.asteroids.length === 0) {
+      this.stop();
+      window.alert("You won!");
+    }
+  }
 
   Game.prototype.destroyAsteroid = function(i) {
     this.asteroids.splice(i, 1);
@@ -122,7 +131,7 @@
   }
 
   Game.prototype.start = function() {
-    this.addAsteroids(10);
+    this.addAsteroids(Game.NUM_ASTEROIDS);
     this.bindKeyHandlers();
     this.timerID = window.setInterval(this.step.bind(this), Game.FPS);
   };

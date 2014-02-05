@@ -9,6 +9,7 @@
 
   var Ship = Asteroids.Ship = function(pos) {
     Asteroids.MovingObject.call(this, pos, [0,0], Ship.RADIUS, Ship.COLOR);
+    this.dir = [1,0];
   };
 
   Ship.RADIUS = 20;
@@ -22,13 +23,28 @@
   };
 
   Ship.prototype.fireBullet = function(game) {
+    var newBullet = new Asteroids.Bullet([this.x, this.y], this.dir, game);
+    return newBullet;
+  };
+
+  Ship.normalize = function(vel) {
+    var shipSpeed = Math.sqrt(Math.pow(vel[0],2) +
+      Math.pow(vel[1],2));
+
+    if (shipSpeed > 0) {
+      return [vel[0]/shipSpeed, vel[1]/shipSpeed];
+    }
+  };
+
+  Ship.prototype.move = function() {
+    Asteroids.MovingObject.prototype.move.call(this);
+
     var shipSpeed = Math.sqrt(Math.pow(this.vel[0],2) +
       Math.pow(this.vel[1],2));
 
     if (shipSpeed > 0) {
-      var direction = [this.vel[0]/shipSpeed, this.vel[1]/shipSpeed];
-      var newBullet = new Asteroids.Bullet([this.x, this.y], direction, game);
-      return newBullet;
+      console.log(this.dir);
+      this.dir = Ship.normalize(this.vel);
     }
   };
 
