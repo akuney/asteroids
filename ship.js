@@ -27,25 +27,18 @@
     return newBullet;
   };
 
-  Ship.normalize = function(vel) {
-    var shipSpeed = Math.sqrt(Math.pow(vel[0],2) +
-      Math.pow(vel[1],2));
+  Ship.prototype.updateDir = function() {
+    var shipSpeed = Math.sqrt(Math.pow(this.vel[0],2) +
+      Math.pow(this.vel[1],2));
 
     if (shipSpeed > 0) {
-      return [vel[0]/shipSpeed, vel[1]/shipSpeed];
+      this.dir = [this.vel[0]/shipSpeed, this.vel[1]/shipSpeed];
     }
   };
 
   Ship.prototype.move = function() {
     Asteroids.MovingObject.prototype.move.call(this);
-
-    var shipSpeed = Math.sqrt(Math.pow(this.vel[0],2) +
-      Math.pow(this.vel[1],2));
-
-    if (shipSpeed > 0) {
-      console.log(this.dir);
-      this.dir = Ship.normalize(this.vel);
-    }
+    this.updateDir();
   };
 
   Ship.prototype.relocate = function() {
