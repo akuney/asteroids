@@ -1,34 +1,38 @@
-var MovingObject = function(pos, vel, rad, col) {
-  this.pos = pos;
-  this.x = pos[0];
-  this.y = pos[1];
-  this.vel = vel;
-  this.rad = rad;
-  this.col = col;
-};
+(function(root) {
+  var Asteroids = root.Asteroids = (root.Asteroids || {});
 
-MovingObject.prototype.move = function() {
-  this.pos += this.vel;
-};
+  var MovingObject = Asteroids.MovingObject = function(pos, vel, rad, col) {
+    this.x = pos[0];
+    this.y = pos[1];
+    this.vel = vel;
+    this.rad = rad;
+    this.col = col;
+  };
 
-MovingObject.prototype.draw = function(ctx) {
-  ctx.fillStyle = this.col;
-  ctx.beginPath();
+  MovingObject.prototype.move = function() {
+    this.x += this.vel[0];
+    this.y += this.vel[1];
+  };
 
-  ctx.arc(
-    this.x,
-    this.y,
-    this.rad,
-    0, 2 * Math.PI
-  );
+  MovingObject.prototype.draw = function(ctx) {
+    ctx.fillStyle = this.col;
+    ctx.beginPath();
 
-  ctx.fill();
-};
+    ctx.arc(
+      this.x,
+      this.y,
+      this.rad,
+      0, 2 * Math.PI
+    );
 
-MovingObject.prototype.isCollidedWith = function(otherObject) {
-  var dist = Math.sqrt(Math.pow(this.x - otherObject.x, 2)
-  + Math.pow(this.y - otherObject.y, 2));
-  var radSum = this.rad + otherObject.rad;
+    ctx.fill();
+  };
 
-  return (radSum > dist);
-}
+  MovingObject.prototype.isCollidedWith = function(otherObject) {
+    var dist = Math.sqrt(Math.pow(this.x - otherObject.x, 2)
+    + Math.pow(this.y - otherObject.y, 2));
+    var radSum = this.rad + otherObject.rad;
+
+    return (radSum > dist);
+  };
+})(this);
