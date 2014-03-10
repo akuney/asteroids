@@ -3,7 +3,7 @@ Asteroids
 
 By Andre Kuney and Sett Paing Oo
 
-The well-known arcade game, made using object-oriented JavaScript and Canvas drawing.
+The well-known arcade game, made using object-oriented JavaScript and Canvas drawing. Running the index.html file allows you to play the game.
 
 ###MovingObject
 
